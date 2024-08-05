@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fun Projects</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: #161616;
+      color: white;
+      font-family: 'Noto Sans', sans-serif;
+      overflow: hidden;
+      flex-direction: column;
+    }
+    .glow-text {
+      font-size: 3em;
+      position: relative;
+      animation: fadeIn 2s ease-in-out forwards, moveUp 2s ease-in-out 2s forwards;
+      opacity: 0;
+      color: white;
+      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5), 0 0 20px rgba(255, 0, 0, 0.3);
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes moveUp {
+      to {
+        transform: translateY(-50px);
+      }
+    }
+    .button-container {
+      opacity: 0;
+      animation: fadeIn 1s ease-in-out 4s forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .color-button {
+      margin: 10px 0;
+      padding: 10px 40px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      animation: glowButton 3s ease-in-out infinite;
+      transition: background 0.3s;
+    }
+    .color-button:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+    @keyframes glowButton {
+      0% {
+        box-shadow: 0 0 5px #ff2972, 0 0 15px #ff2972;
+      }
+      15% {
+        box-shadow: 0 0 5px #fea600, 0 0 15px #fea600;
+      }
+      30% {
+        box-shadow: 0 0 5px #00c9ff, 0 0 15px #00c9ff;
+      }
+      45% {
+        box-shadow: 0 0 5px #00ff73, 0 0 15px #00ff73;
+      }
+      60% {
+        box-shadow: 0 0 5px #ff6f61, 0 0 15px #ff6f61;
+      }
+      75% {
+        box-shadow: 0 0 5px #ff3d00, 0 0 15px #ff3d00;
+      }
+      90% {
+        box-shadow: 0 0 5px #6a5acd, 0 0 15px #6a5acd;
+      }
+      100% {
+        box-shadow: 0 0 5px #ff1493, 0 0 15px #ff1493;
+      }
+    }
+    .credit-text {
+      margin-top: 20px;
+      font-size: 1.2em;
+    }
+    .message {
+      margin-top: 10px;
+      font-size: 1em;
+    }
+    .password-container, .main-container {
+      display: none;
+    }
+    .visible {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .password-input {
+      padding: 10px;
+      font-size: 1em;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      margin-top: 10px;
+    }
+    .submit-button {
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      background: #1e90ff;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 10px;
+    }
+    .submit-button:hover {
+      background: #006bb3;
+    }
+  </style>
+</head>
+<body>
+  <div class="password-container visible">
+    <div>Please enter the password to access the project:</div>
+    <input type="password" class="password-input" id="password">
+    <button class="submit-button" onclick="checkPassword()">Submit</button>
+  </div>
+
+  <div class="main-container">
+    <div class="glow-text">Do less Earn more</div>
+    <div class="button-container">
+      <button class="color-button" onclick="redirectToLink()">Complete Steps and win</button>
+      <div class="credit-text" id="credit-text">Your Credit: Server Issue, can't track credit</div>
+      <div class="message" id="message"></div>
+    </div>
+  </div>
+
+  <script>
+    const correctPasswords = [
+      'pen_chor',
+      'the_man_of_a_kind',
+      'UMM NANA UMM NANA'
+      'imableckniger'
+      'yare yare'
+    ];
+
+    function checkPassword() {
+      const password = document.getElementById('password').value;
+      if (correctPasswords.includes(password)) {
+        document.querySelector('.password-container').classList.remove('visible');
+        document.querySelector('.main-container').classList.add('visible');
+        updateCredit();
+      } else {
+        alert('Incorrect password. Please try again.');
+      }
+    }
+
+    function redirectToLink() {
+      window.location.href = "https://link-target.net/1211664/stage-1";
+    }
+
+    function updateCredit() {
+      const prizeValue = localStorage.getItem('prizeValue');
+      const creditText = document.getElementById('credit-text');
+      const messageText = document.getElementById('message');
+
+      if (prizeValue) {
+        creditText.textContent = `Your Credit: ₹${prizeValue}`;
+        
+        if (prizeValue == 20 || prizeValue == 30) {
+          messageText.textContent = "You will be receiving your money soon.";
+        } else if (prizeValue == 750) {
+          messageText.textContent = "You will be receiving your pen on 5th August.";
+        } else if (prizeValue == 10000) {
+          messageText.textContent = "You will be receiving your phone soon.";
+        }
+      }
+    }
+  </script>
+</body>
+</html>
